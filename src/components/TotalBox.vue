@@ -8,12 +8,12 @@
         <p class="mx-2">x {{ item.quantity }}</p>
       </div>
       <div class="panel-block has-text-weight-bold">Total: $ {{ totalSum }}</div>
-
+      <div class="panel-block" >Enviar pedido</div>
     </div>
 </template>
 
 <script>
-
+import { addData } from './src/firestore.js'
 export default {
   name: 'TotalBox',
   computed: {
@@ -27,6 +27,7 @@ export default {
       })
       return total
     }
+
   }
 }
 
