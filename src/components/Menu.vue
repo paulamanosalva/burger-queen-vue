@@ -4,7 +4,6 @@
 
       <button @click="clickBreakfast" id="breakfast-btn" class="button">Desayuno</button>
       <button @click="clickLunch" id="lunch-btn" class="button">Almuerzo</button>
-      {{ $store.state.test }}
     </div>
 
     <div v-if="breakfast">

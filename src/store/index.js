@@ -3,9 +3,11 @@ import { data } from '../data.json'
 
 export default createStore({
   state: {
+    name: '',
     food: data,
     order: [],
-    totalBill: 0
+    totalBill: 0,
+    fbData: {}
   },
   mutations: {
     addQuantity (state, item) {
@@ -24,6 +26,12 @@ export default createStore({
       } else {
         state.order[currIndex].quantity--
       }
+    },
+    addName (state, name) {
+      state.name = name
+    },
+    saveData (state, fbData) {
+      state.fbData = fbData
     }
   },
   actions: {

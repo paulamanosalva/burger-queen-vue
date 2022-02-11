@@ -1,16 +1,33 @@
 import { initializeApp } from 'firebase/app'
-import { getFirestore, addDoc, collection } from 'firebase/firestore'
+import {
+  getFirestore, addDoc, collection, query,
+  onSnapshot
+} from 'firebase/firestore'
 import { firebaseConfig } from './fbConfig'
 
-initializeApp({ firebaseConfig })
+initializeApp(firebaseConfig)
 
 const db = getFirestore()
 
-export const addData = async (name, order, total) => {
-  const docRef = await addDoc(collection(db, 'publicaciones'), {
-    name: name,
-    order: order,
-    total: 0
-  })
+const addData = async (data, callback) => {
+  const docRef = await addDoc(collection(db, 'orders'), data
+  )
+  callback()
   return docRef
 }
+
+const readData = (publicaciones, callback) => {
+  const q = query(collection(db, publicaciones))
+  onSnapshot(q, (querySnapshot) => {
+    const posts = []
+    querySnapshot.forEach((document) => {
+      const element = {}
+      element.id = document.id
+      element.data = document.data()
+      posts.push(element)
+    })
+    callback(posts)
+  })
+}
+
+export { addData, readData }

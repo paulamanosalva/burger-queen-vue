@@ -8,12 +8,13 @@
         <p class="mx-2">x {{ item.quantity }}</p>
       </div>
       <div class="panel-block has-text-weight-bold">Total: $ {{ totalSum }}</div>
-      <div class="panel-block" >Enviar pedido</div>
+      <input class="input is-primary" type="text" placeholder="Escribe tu nombre" v-model="userName" @input="clickAdd">
+      <button  id="sendOrder" class="button" @click="addOrder">Enviar pedido</button>
     </div>
 </template>
 
 <script>
-import { addData } from './src/firestore.js'
+import { addData } from '@/firestore.js'
 export default {
   name: 'TotalBox',
   computed: {
@@ -26,9 +27,29 @@ export default {
         total += element.quantity * element.price
       })
       return total
+    },
+    userName: {
+      get () {
+        return this.$store.state.name
+      },
+      set (value) {
+        this.$store.commit('addName', value)
+      }
     }
-
+  },
+  methods: {
+    something () {
+      alert('creaste el pedido')
+    },
+    addOrder () {
+      const data = {
+        name: this.$store.state.name,
+        order: this.$store.state.order,
+        total: this.totalSum
+      }
+      addData(data, this.something)
+      console.log(data)
+    }
   }
 }
-
 </script>
