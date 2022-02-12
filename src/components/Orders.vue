@@ -1,14 +1,16 @@
 <template>
-  <div class="panel has-background-light">
+  <div class="panel has-background-light" v-if="!loading">
     <div class="panel-heading">Resumen del pedido</div>
     <div v-if="$store.state.order.length > 0"></div>
-    <div class="panel-block" v-for="(item, index) in getOrder" :key="index">
-      <p class="mx-2">{{ item.name }}</p>
-      <p class="mx-2">$ {{ item.price }}</p>
-      <p class="mx-2">x {{ item.quantity }}</p>
+    <div class="panel-block" v-for="(item, index) in $store.state.fbData" :key="index">
+      <p class="mx-2">{{ item.element.data.name }}</p>
+      <div v-for="(el, Orderindex) in item.element.data.order" :key="Orderindex">
+      <p class="mx-2">{{ el.name }}</p>
+      <p class="mx-2">$ {{ el.price }}</p>
+      <p class="mx-2">x {{ el.quantity }}</p>
+      </div>
     </div>
     <div class="panel-block has-text-weight-bold">Total: $ {{ totalSum }}</div>
-    <button class="button" @click="saveData">boton de pruebas</button>
     {{ $store.state.fbData }}
   </div>
 </template>
@@ -25,9 +27,7 @@ export default {
   },
   data () {
     return {
-      name: '',
-      order: [],
-      total: 0
+      loading: true
     }
   },
   methods: {
@@ -37,6 +37,7 @@ export default {
   },
   created () {
     readData('orders', this.getData)
+    this.loading = false
   }
 }
 </script>
