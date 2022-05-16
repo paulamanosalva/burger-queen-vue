@@ -18,7 +18,7 @@
     <div v-if="lunch">
       <div v-for="(item, index) in showLunch" :key="index" class="panel-block">
         <p class="mx-2">{{ item.name }}</p>
-        <p class="mx-2">{{ item.price }}</p>
+        <p class="mx-2">$ {{ item.price }}</p>
         <button class="minus button has-background-danger ml-5 has-text-weight-bold"  @click="clickRemove(item.id)">-</button>
         <p class="mx-4">{{ item.quantity }}</p>
         <button class="plus button has-background-success has-text-weight-bold" @click="clickAdd(item)">+</button>
