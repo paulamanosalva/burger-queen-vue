@@ -22,6 +22,7 @@ export default createStore({
     deleteItem (state, id) {
       const currIndex = state.order.findIndex(x => x.id === id)
       if (state.order[currIndex].quantity === 1) {
+        state.order[currIndex].quantity--
         state.order.splice(currIndex, 1)
       } else {
         state.order[currIndex].quantity--

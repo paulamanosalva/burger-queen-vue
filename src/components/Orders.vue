@@ -1,20 +1,24 @@
 <template>
   <div class="panel has-background-light">
-    <div class="panel-heading">Resumen del pedido</div>
+    <div class="panel-heading">Resumen de los pedidos</div>
     <div v-if="$store.state.order.length > 0"></div>
-    <div class="panel-block" v-for="(item, index) in getOrder" :key="index">
-      <p class="mx-2">{{ item.name }}</p>
-      <p class="mx-2">$ {{ item.price }}</p>
-      <p class="mx-2">x {{ item.quantity }}</p>
+    <div v-for="(order, index) in fbData" :key="index">
+      <div class="panel-heading">
+        {{ order.data.name }}
+        <button class="minus button has-background-danger ml-5 has-text-weight-bold" @click="deleteOrder(order.id)"> - </button>
+      </div>
+      <div v-for="(el, index) in order.data.order" :key="index" class="panel-block">
+        <p class="mx-2">{{ el.name }}</p>
+        <p class="mx-2">$ {{ el.price }}</p>
+        <p class="mx-2">x {{ el.quantity }}</p>
+      </div>
+      <div class="panel-block has-text-weight-bold">Total: $ {{ order.data.total }}</div>
     </div>
-    <div class="panel-block has-text-weight-bold">Total: $ {{ totalSum }}</div>
-    <button class="button" @click="saveData">boton de pruebas</button>
-    {{ $store.state.fbData }}
   </div>
 </template>
 
 <script>
-import { readData } from '@/firestore.js'
+import { readData, deleteDocData } from '@/firestore.js'
 export default {
 
   name: 'Orders',
@@ -33,6 +37,9 @@ export default {
   methods: {
     getData (data) {
       this.$store.commit('saveData', data)
+    },
+    deleteOrder (id) {
+      if (confirm('¡Vas a borrar el pedido! ¿Deseas continuar?')) deleteDocData(id)
     }
   },
   created () {
