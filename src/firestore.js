@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import {
   getFirestore, addDoc, collection, query,
-  onSnapshot
+  onSnapshot, deleteDoc, doc
 } from 'firebase/firestore'
 import { firebaseConfig } from './fbConfig'
 
@@ -30,4 +30,8 @@ const readData = (publicaciones, callback) => {
   })
 }
 
-export { addData, readData }
+const deleteDocData = async (id) => {
+  await deleteDoc(doc(db, 'orders', id))
+}
+
+export { addData, readData, deleteDocData }

@@ -38,7 +38,7 @@ export default {
     }
   },
   methods: {
-    something () {
+    createdAlert () {
       alert('creaste el pedido')
     },
     addOrder () {
@@ -47,7 +47,7 @@ export default {
         order: this.$store.state.order,
         total: this.totalSum
       }
-      addData(data, this.something)
+      addData(data, this.createdAlert)
       console.log(data)
     }
   }
