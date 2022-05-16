@@ -17,7 +17,7 @@ This is the first project I made on Vue.js, so I learned the basics through this
 
 It is designed for tablet but I hope to include other devices in the future. 
 
-![screenshot](src\resources\burger.png "screenshot")
+![screenshot](src/resources/burger.png "screenshot")
 
 <br />
 
