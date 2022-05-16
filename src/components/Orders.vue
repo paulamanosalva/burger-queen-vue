@@ -29,9 +29,7 @@ export default {
   },
   data () {
     return {
-      name: '',
-      order: [],
-      total: 0
+      loading: true
     }
   },
   methods: {
@@ -44,6 +42,7 @@ export default {
   },
   created () {
     readData('orders', this.getData)
+    this.loading = false
   }
 }
 </script>
